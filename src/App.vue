@@ -3,21 +3,27 @@ import { RouterLink, RouterView } from 'vue-router'
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <RouterLink class="nav-link active" aria-current="page" to="/">Home</RouterLink>
-          </li>
-          <li class="nav-item">
-            <RouterLink class="nav-link" to="/login">Login / Register</RouterLink>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <div class="myNav">
+    <RouterLink class="nav-link active" aria-current="page" to="/">HOME</RouterLink>
+    <RouterLink class="nav-link" to="/login">LOGIN / REGISTER</RouterLink>
+  </div>
   <RouterView />
 </template>
-
-<style scoped></style>
+<style>
+.container-sm {
+  max-width: 540px !important;
+}
+.myNav {
+  display: flex;
+  justify-content: space-between;
+  max-width: 300px;
+  margin: auto;
+  height: 50px;
+  padding: 10px;
+  font-size: 20px;
+  text-decoration: underline;
+}
+h3 {
+  margin: 20px !important;
+}
+</style>

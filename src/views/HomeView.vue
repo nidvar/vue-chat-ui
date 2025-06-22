@@ -1,7 +1,8 @@
 <script setup lang="ts"></script>
 
 <template>
-  <main>
-    <h1>Full stack blog</h1>
-  </main>
+  <div class="container-lg mt-3">
+    <h3 class="text-center">VueJS - Node</h3>
+    <p class="text-center">Express - MongoDB</p>
+  </div>
 </template>
