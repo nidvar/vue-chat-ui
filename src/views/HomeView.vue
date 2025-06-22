@@ -2,6 +2,6 @@
 
 <template>
   <main>
-    <h1>Home View</h1>
+    <h1>Full stack blog</h1>
   </main>
 </template>
