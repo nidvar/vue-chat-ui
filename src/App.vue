@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 </script>
-
 <template>
   <div class="myNav">
     <RouterLink class="nav-link active" aria-current="page" to="/">HOME</RouterLink>
-    <RouterLink class="nav-link" to="/login">LOGIN / REGISTER</RouterLink>
+    <RouterLink class="nav-link" to="/create">CREATE</RouterLink>
+    <RouterLink class="nav-link" to="/login">LOGIN</RouterLink>
   </div>
   <RouterView />
 </template>
@@ -16,7 +16,7 @@ import { RouterLink, RouterView } from 'vue-router'
 .myNav {
   display: flex;
   justify-content: space-between;
-  max-width: 300px;
+  max-width: 600px;
   margin: auto;
   height: 50px;
   padding: 10px;
@@ -25,5 +25,8 @@ import { RouterLink, RouterView } from 'vue-router'
 }
 h3 {
   margin: 20px !important;
+}
+textarea {
+  min-height:200px !important;
 }
 </style>
