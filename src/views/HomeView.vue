@@ -1,12 +1,25 @@
 <script setup lang="ts">
 import {ref} from 'vue';
 
-const data = ref([]);
+interface Data {
+  id: number
+  title: string
+  body: string
+  email: string
+  username: string
+  createdAt: Date
+  updatedAt: Date
+};
+
+const data = ref<Data[]>([]);
 
 const grabData = async ()=>{
-  if(localStorage.getItem('blogs') != null && localStorage.getItem('blogs').length > 0){
+
+  const blogs = localStorage.getItem('blogs');
+
+  if(blogs != null && blogs.length > 0){
     console.log('there is local storage')
-    data.value = JSON.parse(localStorage.getItem('blogs'));
+    data.value = JSON.parse(blogs);
     console.log(data.value)
   }else{
     const result = await fetch('http://localhost:8080/');
@@ -16,10 +29,10 @@ const grabData = async ()=>{
   }
 };
 
-function timeAgo(date) {
-  const now = new Date();
-  const past = new Date(date);
-  const diffMs = now - past;
+function timeAgo(date: Date | string) {
+  const now: Date = new Date();
+  const past: Date = new Date(date);
+  const diffMs = now.getTime() - past.getTime();
 
   const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
   return `${diffHours} hour${diffHours !== 1 ? 's' : ''} ago`;
