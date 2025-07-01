@@ -2,18 +2,7 @@
 import {ref} from 'vue';
 import {RouterLink} from 'vue-router';
 import {timeAgo} from '../tools/tools.ts';
-
-console.log(timeAgo);
-
-interface Data {
-  _id: number
-  title: string
-  body: string
-  email: string
-  username: string
-  createdAt: Date
-  updatedAt: Date
-};
+import {type Data} from '../interfaces/interface.ts';
 
 const data = ref<Data[]>([]);
 
@@ -28,8 +17,6 @@ const grabData = async ()=>{
     data.value = response;
   }
 };
-
-
 
 grabData();
 

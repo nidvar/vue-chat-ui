@@ -2,29 +2,10 @@
 import {ref} from 'vue';
 import {useRoute} from 'vue-router';
 import {timeAgo} from '../tools/tools.ts';
+import {type Blog, type Reply} from '../interfaces/interface.ts'
 
 const route = useRoute();
 const error = ref<null | string>(null);
-
-interface Blog{
-  _id:number
-  title: string
-  body: string
-  email: string
-  username: string
-  createdAt: Date
-  updatedAt: Date
-};
-
-interface Reply{
-  _id: number
-  comment: string
-  replyTo: string
-  email: string
-  username: string
-  createdAt: Date
-  updatedAt: Date
-}
 
 const blog = ref<Blog | null>(null);
 const replies = ref<Reply[]>([]);
