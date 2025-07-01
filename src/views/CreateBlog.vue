@@ -1,9 +1,17 @@
 <script lang="ts" setup>
 import {ref} from 'vue';
+import {useRouter} from 'vue-router';
+
+const router = useRouter();
+
+
 const title = ref('');
 const body = ref('');
 
-const handleSubmit = function(){
+const handleSubmit = async function(){
+
+  console.log(1)
+
   const payload = {
     method:'POST',
     headers:{
@@ -14,7 +22,18 @@ const handleSubmit = function(){
       body: body.value
     })
   }
-  fetch('http://localhost:8080/create', payload)
+
+  console.log(2)
+
+  const response = await fetch('http://localhost:8080/create', payload);
+
+  console.log('response', response);
+
+  title.value = '';
+  body.value = '';
+
+  router.push('/');
+  console.log(3)
 }
 
 </script>

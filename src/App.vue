@@ -29,4 +29,11 @@ h3 {
 textarea {
   min-height:200px !important;
 }
+.blog-display{
+  border-bottom:1px solid lightgray;
+  margin-bottom:10px;
+}
+.blog-display h5, p{
+  margin:0 !important;
+}
 </style>
