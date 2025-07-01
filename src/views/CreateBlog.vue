@@ -4,14 +4,10 @@ import {useRouter} from 'vue-router';
 
 const router = useRouter();
 
-
 const title = ref('');
 const body = ref('');
 
 const handleSubmit = async function(){
-
-  console.log(1)
-
   const payload = {
     method:'POST',
     headers:{
@@ -21,19 +17,16 @@ const handleSubmit = async function(){
       title: title.value,
       body: body.value
     })
-  }
-
-  console.log(2)
-
-  const response = await fetch('http://localhost:8080/create', payload);
-
-  console.log('response', response);
-
-  title.value = '';
-  body.value = '';
-
-  router.push('/');
-  console.log(3)
+  };
+  try{
+    const response = await fetch('http://localhost:8080/create', payload);
+    console.log('response', response);
+    title.value = '';
+    body.value = '';
+    router.push('/');
+  }catch(error){
+    console.log(error);
+  };
 }
 
 </script>

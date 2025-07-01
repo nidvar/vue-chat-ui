@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import {ref} from 'vue';
+import {RouterLink} from 'vue-router';
+import {timeAgo} from '../tools/tools.ts';
+
+console.log(timeAgo);
 
 interface Data {
-  id: number
+  _id: number
   title: string
   body: string
   email: string
@@ -14,13 +18,9 @@ interface Data {
 const data = ref<Data[]>([]);
 
 const grabData = async ()=>{
-
   const blogs = localStorage.getItem('blogs');
-
   if(blogs != null && blogs.length > 0){
-    console.log('there is local storage')
     data.value = JSON.parse(blogs);
-    console.log(data.value)
   }else{
     const result = await fetch('http://localhost:8080/');
     const response = await result.json();
@@ -29,14 +29,7 @@ const grabData = async ()=>{
   }
 };
 
-function timeAgo(date: Date | string) {
-  const now: Date = new Date();
-  const past: Date = new Date(date);
-  const diffMs = now.getTime() - past.getTime();
 
-  const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
-  return `${diffHours} hour${diffHours !== 1 ? 's' : ''} ago`;
-};
 
 grabData();
 
@@ -47,11 +40,14 @@ grabData();
     <h3 class="text-center">VueJS - Node</h3>
     <p class="text-center">Express - MongoDB</p>
     <br /><br />
-    <div v-for="item in data" :key="item.id" class="blog-display">
-      <p><strong>{{ item.username }}</strong> - {{ timeAgo(item.updatedAt) }}</p>
-      <p><strong>{{ item.title }}</strong></p>
-      <p>{{ item.body }}</p>
-      <br />
+    <div v-for="item in data" :key="item._id" class="blog-display">
+      <div class="link">
+        <RouterLink :to="'blog/' + item._id">
+          <p><strong>{{ item.username }}</strong> - {{ timeAgo(item.updatedAt) }}</p>
+          <p><strong>{{ item.title }}</strong></p>
+          <p>{{ item.body }}</p>
+        </RouterLink>
+      </div>
     </div>
   </div>
 </template>

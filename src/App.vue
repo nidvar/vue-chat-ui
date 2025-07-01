@@ -16,24 +16,36 @@ import { RouterLink, RouterView } from 'vue-router'
 .myNav {
   display: flex;
   justify-content: space-between;
-  max-width: 600px;
+  max-width: 540px;
   margin: auto;
   height: 50px;
   padding: 10px;
   font-size: 20px;
   text-decoration: underline;
 }
-h3 {
-  margin: 20px !important;
-}
 textarea {
   min-height:200px !important;
 }
+.reply{
+  min-height:70px !important;
+}
 .blog-display{
   border-bottom:1px solid lightgray;
-  margin-bottom:10px;
 }
 .blog-display h5, p{
   margin:0 !important;
+}
+a:link, a:visited{
+  text-decoration: none;
+  color:inherit;
+}
+.link{
+  padding:15px 0 15px 0;
+}
+.link:hover {
+ background-color: whitesmoke;
+}
+.comment-display{
+  padding:10px;
 }
 </style>
