@@ -4,7 +4,17 @@ const title = ref('');
 const body = ref('');
 
 const handleSubmit = function(){
-  console.log('submit blog');
+  const payload = {
+    method:'POST',
+    headers:{
+      'content-type':'application/json'
+    },
+    body: JSON.stringify({
+      title: title.value,
+      body: body.value
+    })
+  }
+  fetch('http://localhost:8080/create', payload)
 }
 
 </script>
