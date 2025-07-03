@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import CreateBlog from '../views/CreateBlog.vue'
 import BlogView from '../views/BlogView.vue'
+import Dashboard from '../views/Dashboard.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +27,11 @@ const router = createRouter({
       name:'create',
       component: CreateBlog,
       meta: { requiresAuth: true }
+    },
+    {
+      path:'/dashboard',
+      name:'dashboard',
+      component: Dashboard
     },
     {
       path:'/blog/:id',

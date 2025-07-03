@@ -2,7 +2,8 @@
 import {ref} from 'vue';
 import {useRoute} from 'vue-router';
 import {timeAgo} from '../tools/tools.ts';
-import {type Blog, type Reply} from '../interfaces/interface.ts'
+import {type Blog, type Reply} from '../interfaces/interface.ts';
+import {loggedIn} from '../globalState/state.ts';
 
 const route = useRoute();
 const error = ref<null | string>(null);
@@ -12,6 +13,10 @@ const replies = ref<Reply[]>([]);
 
 const replyTo = ref('');
 const comment = ref('');
+
+const clearError = function(){
+  error.value = '';
+}
 
 const grabBlog = async function(){
   const response = await fetch('http://localhost:8080/blog/' + route.params.id);
@@ -35,6 +40,14 @@ const grabBlog = async function(){
 };
 
 const addComment = async function(){
+  if(!loggedIn.value){
+    error.value = 'please login to add a comment';
+    return
+  };
+  if(comment.value.trim() == ''){
+    error.value = 'comment cannot be empty';
+    return
+  }
   replyTo.value = route.params.id as string;
   const payload = {
     method: 'POST',
@@ -69,12 +82,17 @@ grabBlog();
       <form @submit.prevent="addComment" method="POST">
         <div class="mb-3">
           <label for="comment" class="form-label">Add a comment</label>
-          <textarea type="text" class="form-control reply" id="comment" v-model="comment"></textarea>
+          <textarea type="text" class="form-control reply" id="comment" v-model="comment" @input="clearError"></textarea>
         </div>
         <div class="text-end">
           <button type="submit" class="btn btn-primary" @submit="addComment">Add Comment</button>
         </div>
+        <p class="error">{{ error }}</p>
       </form>
+
+
+      <br />
+      <hr />
 
       <div v-for="item in replies" :key="item._id" class="comment-display">
         <p><strong>{{item.username}}</strong> - {{ timeAgo(item.updatedAt) }}</p>

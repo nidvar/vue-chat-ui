@@ -14,7 +14,7 @@ const clearError = function(){
 }
 
 const handleSubmit = async function(){
-  if(body.value == '' || title.value == ''){
+  if(body.value.trim() == '' || title.value.trim() == ''){
     error.value = 'Content is blank';
     return
   };
