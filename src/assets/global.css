@@ -36,3 +36,9 @@ a:link, a:visited{
 .comment-display{
   padding:10px;
 }
+.error{
+  color:red;
+}
+.logout{
+  cursor: pointer;
+}

@@ -24,7 +24,8 @@ const router = createRouter({
     {
       path:'/create',
       name:'create',
-      component: CreateBlog
+      component: CreateBlog,
+      meta: { requiresAuth: true }
     },
     {
       path:'/blog/:id',

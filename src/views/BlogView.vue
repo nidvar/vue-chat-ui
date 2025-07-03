@@ -41,13 +41,14 @@ const addComment = async function(){
     headers: {
       'content-type':'application/json'
     },
+    credentials: 'include' as RequestCredentials,
     body:JSON.stringify({
       replyTo: replyTo.value,
-      comment: comment.value
+      comment: comment.value,
     })
   };
   const response = await fetch('http://localhost:8080/comment', payload);
-  const result = await response.json();
+  const result = await response.text();
   console.log(result);
   grabBlog();
 };

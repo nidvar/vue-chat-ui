@@ -5,3 +5,4 @@ export const timeAgo = function(date: Date | string){
   const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
   return `${diffHours} hour${diffHours !== 1 ? 's' : ''} ago`;
 };
+
