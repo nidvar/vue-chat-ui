@@ -38,7 +38,7 @@ const handleLogin = async function(){
   email.value = '';
   password.value = '';
   loggedIn.value = true;
-  router.push('/');
+  router.push('/dashboard');
 
   if(response == "no user found"){
     error.value = response;

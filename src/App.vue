@@ -3,12 +3,9 @@ import { RouterLink, RouterView } from 'vue-router';
 import { onMounted } from 'vue';
 import {loggedIn} from './globalState/state.ts';
 
-
 onMounted(()=>{
   console.log('on mounted', loggedIn.value);
 });
-
-
 
 </script>
 <template>
