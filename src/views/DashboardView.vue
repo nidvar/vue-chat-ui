@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 
 import {loggedIn} from '../globalState/state.ts';
 import {useRouter} from 'vue-router';
@@ -33,7 +33,7 @@ onMounted(async ()=>{
   username.value = response.user.username;
   dateCreated.value = response.user.createdAt;
   email.value = response.user.email;
-})
+});
 
 </script>
 
