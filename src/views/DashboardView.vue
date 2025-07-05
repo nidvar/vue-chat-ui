@@ -19,20 +19,24 @@ const deleteCookie = async function() {
   router.push('/');
 };
 
-onMounted(async ()=>{
-  console.log('dashboard')
+onMounted(()=>{
   localStorage.setItem('blogs', '');
-  const data = await fetch('http://localhost:8080/dashboard', {
-    method:'GET',
-    credentials: 'include' as RequestCredentials
-  });
-
-  const response = await data.json();
-  noOfPosts.value = response.posts.length;
-
-  username.value = response.user.username;
-  dateCreated.value = response.user.createdAt;
-  email.value = response.user.email;
+  const grabUserData = async function(){
+    const data = await fetch('http://localhost:8080/dashboard', {
+      method:'GET',
+      credentials: 'include' as RequestCredentials
+    });
+    const response = await data.json();
+    if(response.posts){
+      noOfPosts.value = response.posts.length;
+    };
+    if(response.user){
+      username.value = response.user.username;
+      dateCreated.value = response.user.createdAt;
+      email.value = response.user.email;
+    };
+  }
+  grabUserData();
 });
 
 </script>

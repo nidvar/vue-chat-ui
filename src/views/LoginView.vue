@@ -33,16 +33,15 @@ const handleLogin = async function(){
   }
   const result = await fetch('http://localhost:8080/login', payload);
   const response = await result.json();
-
-  loading.value = false;
-  email.value = '';
-  password.value = '';
-  loggedIn.value = true;
-  router.push('/dashboard');
-
-  if(response == "no user found"){
-    error.value = response;
+  if(response && response.loggedIn == true){
+    email.value = '';
+    password.value = '';
+    loggedIn.value = true;
+    router.push('/dashboard');
+  }else{
+    error.value = response.error;
   };
+  loading.value = false;
 }
 
 </script>

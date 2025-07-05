@@ -20,6 +20,8 @@ const grabData = async ()=>{
 
 grabData();
 
+
+
 </script>
 
 <template>

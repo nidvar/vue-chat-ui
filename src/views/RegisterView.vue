@@ -18,8 +18,8 @@ const handleSubmit = async function () {
     }),
   }
   const response = await fetch('http://localhost:8080/register', payload)
-  const result = await response.text()
-  console.log(result)
+  const result = await response.json()
+  console.log(result);
 }
 </script>
 <template>

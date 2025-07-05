@@ -35,8 +35,8 @@ const handleSubmit = async function(){
   };
   try{
     const response = await fetch('http://localhost:8080/create', payload);
-    const result = await response.text();
-    if(result == 'blog created'){
+    const result = await response.json();
+    if(result.message == 'blog created'){
       title.value = '';
       body.value = '';
       localStorage.setItem('blogs', '');
