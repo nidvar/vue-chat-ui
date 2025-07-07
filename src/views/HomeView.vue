@@ -19,6 +19,7 @@ const grabData = async () => {
 }
 
 grabData()
+
 </script>
 
 <template>
@@ -29,7 +30,7 @@ grabData()
         <div v-for="item in data" :key="item._id" class="blog-display">
             <div class="link">
                 <RouterLink :to="'blog/' + item._id">
-                    <p>
+                    <p class="user-details">
                         <strong>{{ item.username }}</strong> - {{ timeAgo(item.updatedAt) }}
                     </p>
                     <p>

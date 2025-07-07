@@ -12,3 +12,39 @@ export function timeAgo(dateInput: string | Date): string {
     ? "1 day ago"
     : `${diffInDays} days ago`;
 }
+
+export const fileHandler = async (event: Event): Promise<{error: string; payload: string}> => {
+    const result = {
+        error:'Error',
+        payload:''
+    };
+    const target = event.target as HTMLInputElement;
+    if(target.files && target.files[0]){
+        const image = target.files[0];
+        if(target.files[0].size > 1293348){
+            result.error = 'Image must be smaller than 1MB';
+            return result;
+        };
+        if(target.files[0].type != 'image/jpeg' && target.files[0].type != 'image/png'){
+            result.error = 'Image is not JPEG or PNG';
+            return result;
+        };
+
+        const base64 = await new Promise<string>(function(res, rej){
+            const reader = new FileReader();
+            reader.readAsDataURL(image);
+            reader.onload = function(){
+                if(reader.result){
+                    res(reader.result as string);
+                }else{
+                    rej('fail')
+                };
+            };
+        });
+
+        result.error = '';
+        result.payload = base64;
+        return result
+    }
+    return result
+};

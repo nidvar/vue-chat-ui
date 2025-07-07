@@ -10,9 +10,8 @@ const auth = async function () {
         credentials: 'include' as RequestCredentials,
     })
     const response = await result.json()
-    console.log(response)
     if (!response.authenticated) {
-        router.push('/login')
+        router.push('/')
     } else {
         loggedIn.value = response.authenticated
     }
@@ -25,7 +24,7 @@ onMounted(() => {
 <template>
     <div class="myNav">
         <RouterLink class="nav-link active" aria-current="page" to="/">HOME</RouterLink>
-        <RouterLink class="nav-link" to="/create">CREATE</RouterLink>
+        <RouterLink class="nav-link" to="/create">NEW BLOG</RouterLink>
         <RouterLink class="nav-link" to="/dashboard" v-if="loggedIn">ACCOUNT</RouterLink>
         <RouterLink class="nav-link" to="/login" v-if="!loggedIn">LOGIN</RouterLink>
     </div>

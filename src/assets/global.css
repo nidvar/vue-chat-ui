@@ -42,3 +42,9 @@ a:link, a:visited{
 .logout{
   cursor: pointer;
 }
+.user-details{
+    font-size:14px;
+}
+.image-preview{
+    max-height:200px;
+}
