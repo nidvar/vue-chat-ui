@@ -29,10 +29,13 @@ const grabBlog = async function () {
 
     const data = result.blogPost[0]
     replies.value = result.replies;
-    const userData = await auth();
 
-    if(data.email == userData.email){
+    const userData = await auth(router, 'email');
+
+    if(userData && userData.email == data.email){
         ableToDelete.value = true;
+    }else{
+        ableToDelete.value = false;
     }
 
     if (data.title != null && data.body != null) {

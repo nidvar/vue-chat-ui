@@ -1,5 +1,5 @@
 import {loggedIn} from '../globalState/state.ts';
-import {useRouter} from 'vue-router';
+import type { Router } from 'vue-router';
 
 export function timeAgo(dateInput: string | Date): string {
   const now: Date = new Date();
@@ -52,12 +52,14 @@ export const fileHandler = async (event: Event): Promise<{error: string; payload
     return result
 };
 
-export const auth = async function () {
-    const router = useRouter();
+export const auth = async function (router: Router, email?: string) {
     const result = await fetch('http://localhost:8080/auth', {
         credentials: 'include' as RequestCredentials,
     })
     const response = await result.json();
+    if(email){
+        return response;
+    }
     if (!response.authenticated) {
         router.push('/')
     } else {

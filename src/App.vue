@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import { RouterLink, RouterView, useRouter } from 'vue-router'
 import { onMounted } from 'vue'
 import { loggedIn } from './globalState/state.ts'
 import { auth } from './tools/tools.ts'
 
+const router = useRouter();
+
 onMounted(() => {
-    auth();
+    auth(router);
 });
 
 </script>
