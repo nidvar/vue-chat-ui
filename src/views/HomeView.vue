@@ -18,7 +18,7 @@ const grabData = async () => {
     }
 }
 
-grabData()
+grabData();
 
 </script>
 

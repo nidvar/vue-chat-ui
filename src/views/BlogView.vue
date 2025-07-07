@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { timeAgo } from '../tools/tools.ts'
+import { timeAgo, auth } from '../tools/tools.ts'
 import { type Blog, type Reply } from '../interfaces/interface.ts'
 import { loggedIn } from '../globalState/state.ts'
 
@@ -15,7 +15,9 @@ const replies = ref<Reply[]>([])
 const replyTo = ref('')
 const comment = ref('')
 
-const deletePopup = ref(false)
+const deletePopup = ref(false);
+
+const ableToDelete = ref(false);
 
 const clearError = function () {
     error.value = ''
@@ -26,7 +28,12 @@ const grabBlog = async function () {
     const result = await response.json()
 
     const data = result.blogPost[0]
-    replies.value = result.replies
+    replies.value = result.replies;
+    const userData = await auth();
+
+    if(data.email == userData.email){
+        ableToDelete.value = true;
+    }
 
     if (data.title != null && data.body != null) {
         error.value = null
@@ -36,7 +43,7 @@ const grabBlog = async function () {
             updatedAt: new Date(data.updatedAt),
         }
         replyTo.value = ''
-        comment.value = ''
+        comment.value = '';
     } else {
         error.value = 'Error!'
     }
@@ -88,7 +95,9 @@ const deleteReply = function (id: number | string) {
     console.log(id)
 }
 
-grabBlog()
+grabBlog();
+
+
 </script>
 <template>
     <div class="container-sm mt-3" v-if="!deletePopup">
@@ -99,7 +108,7 @@ grabBlog()
             </p>
             <h3>{{ blog.title }}</h3>
             <p>{{ blog.body }}</p>
-            <div class="text-end">
+            <div class="text-end" v-if="ableToDelete">
                 <button @click="deletePopup = true" class="btn btn-danger btn-sm">DELETE</button>
             </div>
             <hr />

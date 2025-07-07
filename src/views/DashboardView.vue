@@ -9,8 +9,10 @@ const username = ref('')
 const email = ref('')
 const dateCreated = ref('')
 const noOfPosts = ref('');
-
+const error = ref('');
 const previewUrl = ref('');
+const setProfilePic = ref('');
+
 const editProfilePicture = ref(false);
 
 const deleteCookie = async function () {
@@ -24,7 +26,7 @@ const deleteCookie = async function () {
 
 const onFileChange = async (event: Event) => {
     const imageData = await fileHandler(event);
-    console.log(imageData);
+    previewUrl.value = imageData.payload;
 };
 
 const grabUserData = async function () {
@@ -32,7 +34,7 @@ const grabUserData = async function () {
         method: 'GET',
         credentials: 'include' as RequestCredentials,
     })
-    const response = await data.json()
+    const response = await data.json();
     if (response.posts) {
         noOfPosts.value = response.posts.length
     }
@@ -40,8 +42,33 @@ const grabUserData = async function () {
         username.value = response.user.username
         dateCreated.value = response.user.createdAt
         email.value = response.user.email
+        setProfilePic.value = response.user.profilePic
     }
 };
+
+const updateProfilePic = async function(){
+    if(previewUrl.value.trim() == ''){
+        error.value = 'Upload picture';
+        return
+    };
+    editProfilePicture.value = false;
+    const payload = {
+        method: 'PUT',
+        headers: {
+            'content-type': 'application/json',
+        },
+        credentials: 'include' as RequestCredentials,
+        body: JSON.stringify({
+            profilePic: previewUrl.value
+        })
+    }
+    const response = await fetch('http://localhost:8080/picture', payload);
+    const result = await response.json();
+    console.log(result);
+    error.value = '';
+    grabUserData();
+};
+
 onMounted(() => {
     localStorage.setItem('blogs', '');
     grabUserData();
@@ -52,7 +79,9 @@ onMounted(() => {
     <div class="container-sm mt-3">
         <h3 class="text-center">Dashboard</h3>
         <br />
-        <img src="" class="image-preview"><br /><br />
+        <div class="text-center">
+            <img :src="setProfilePic" class="image-preview" v-if="!editProfilePicture">
+        </div>
         <div class="text-center" v-if="editProfilePicture">
             <img :src="previewUrl" class="image-preview"><br /><br />
             <input
@@ -60,19 +89,17 @@ onMounted(() => {
                 type="file"
                 @change="onFileChange"
             />
-            <button
-                v-else
-                @click="previewUrl = ''"
-                class="btn btn-danger btn-sm"
-                >Remove
-            </button>
         </div>
         <br />
-        <button @click="editProfilePicture = true" v-if="!editProfilePicture">Edit Profile Picture</button>
-        <button @click="editProfilePicture = true" v-else>Cancel</button>
-        <div>
-
+        <div class="text-center">
+            <button class="btn btn-primary btn-sm" @click="editProfilePicture = true" v-if="!editProfilePicture">Edit Profile Picture</button>
+            <div v-else>
+                <button class="btn btn-danger btn-sm" @click="editProfilePicture = false; previewUrl = ''; error = ''">Cancel</button>
+                <button class="btn btn-primary btn-sm ms-2" @click="updateProfilePic" v-if="previewUrl != ''">Upload</button>
+            </div>
+            <p class="error">{{ error }}</p>
         </div>
+
         <br />
         <div>
             <p><strong>Username:</strong> {{ username }}</p>
