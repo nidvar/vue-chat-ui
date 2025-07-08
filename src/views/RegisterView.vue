@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { fileHandler } from '../tools/tools';
-
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
 const router = useRouter();
 
 const username = ref('');
@@ -47,7 +47,7 @@ const handleSubmit = async function () {
             password: password.value,
         }),
     }
-    const response = await fetch('http://localhost:8080/register', payload)
+    const response = await fetch(baseUrl + '/register', payload)
     const result = await response.json()
     console.log(result);
     if(result.message = 'user created'){

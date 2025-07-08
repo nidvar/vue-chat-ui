@@ -4,6 +4,8 @@ import { useRouter } from 'vue-router'
 import { onMounted, ref } from 'vue'
 import { fileHandler } from '../tools/tools.ts'
 
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
 const router = useRouter()
 const username = ref('')
 const email = ref('')
@@ -16,7 +18,7 @@ const setProfilePic = ref('');
 const editProfilePicture = ref(false);
 
 const deleteCookie = async function () {
-    await fetch('http://localhost:8080/logout', {
+    await fetch(baseUrl + '/logout', {
         method: 'GET',
         credentials: 'include' as RequestCredentials,
     })
@@ -30,7 +32,7 @@ const onFileChange = async (event: Event) => {
 };
 
 const grabUserData = async function () {
-    const data = await fetch('http://localhost:8080/dashboard', {
+    const data = await fetch(baseUrl + '/dashboard', {
         method: 'GET',
         credentials: 'include' as RequestCredentials,
     })
@@ -62,7 +64,7 @@ const updateProfilePic = async function(){
             profilePic: previewUrl.value
         })
     }
-    const response = await fetch('http://localhost:8080/picture', payload);
+    const response = await fetch(baseUrl + '/picture', payload);
     const result = await response.json();
     console.log(result);
     error.value = '';

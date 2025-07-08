@@ -3,6 +3,7 @@ import { RouterLink } from 'vue-router'
 import { ref } from 'vue'
 import { loggedIn } from '../globalState/state.ts'
 import { useRouter } from 'vue-router'
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 const router = useRouter()
 const email = ref('')
@@ -31,7 +32,7 @@ const handleLogin = async function () {
             password: password.value,
         }),
     }
-    const result = await fetch('http://localhost:8080/login', payload)
+    const result = await fetch(baseUrl + '/login', payload)
     const response = await result.json()
     if (response && response.loggedIn == true) {
         email.value = ''

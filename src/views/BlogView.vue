@@ -5,6 +5,8 @@ import { timeAgo, auth } from '../tools/tools.ts'
 import { type Blog, type Reply, type User } from '../interfaces/interface.ts'
 import { loggedIn } from '../globalState/state.ts'
 
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
 const route = useRoute()
 const router = useRouter()
 const error = ref<null | string>(null)
@@ -26,7 +28,7 @@ const clearError = function () {
 const users = ref<User[]>([]);
 
 const grabBlog = async function () {
-    const response = await fetch('http://localhost:8080/blog/' + route.params.id)
+    const response = await fetch(baseUrl + '/blog/' + route.params.id)
     const result = await response.json();
     users.value = result.allUsers;
     const data = result.blogPost;

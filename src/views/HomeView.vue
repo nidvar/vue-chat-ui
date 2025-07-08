@@ -4,6 +4,8 @@ import { RouterLink } from 'vue-router'
 import { timeAgo } from '../tools/tools.ts'
 import { type Data, type User } from '../interfaces/interface.ts'
 
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
 const data = ref<Data[]>([]);
 const users = ref<User[]>([]);
 
@@ -18,7 +20,7 @@ const grabData = async () => {
             return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
         });
     } else {
-        const result = await fetch('http://localhost:8080/')
+        const result = await fetch(baseUrl)
         const response = await result.json();
         const posts = response.posts;
         users.value = response.users;

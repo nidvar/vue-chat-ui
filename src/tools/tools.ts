@@ -1,5 +1,6 @@
 import {loggedIn} from '../globalState/state.ts';
 import type { Router } from 'vue-router';
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 export function timeAgo(dateInput: string | Date): string {
   const now: Date = new Date();
@@ -53,7 +54,7 @@ export const fileHandler = async (event: Event): Promise<{error: string; payload
 };
 
 export const auth = async function (router: Router, email?: string) {
-    const result = await fetch('http://localhost:8080/auth', {
+    const result = await fetch(baseUrl + '/auth', {
         credentials: 'include' as RequestCredentials,
     })
     const response = await result.json();

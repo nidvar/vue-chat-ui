@@ -3,6 +3,8 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { loggedIn } from '../globalState/state.ts'
 
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
 const router = useRouter()
 
 const title = ref('')
@@ -34,7 +36,7 @@ const handleSubmit = async function () {
         }),
     }
     try {
-        const response = await fetch('http://localhost:8080/create', payload)
+        const response = await fetch(baseUrl + '/create', payload)
         const result = await response.json()
 
         if (result.message == 'blog created') {
