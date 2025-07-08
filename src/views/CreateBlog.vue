@@ -38,7 +38,7 @@ const handleSubmit = async function () {
     try {
         const response = await fetch(baseUrl + '/create', payload)
         const result = await response.json()
-
+        console.log(result)
         if (result.message == 'blog created') {
             title.value = ''
             body.value = ''
