@@ -9,7 +9,10 @@ const data = ref<Data[]>([])
 const grabData = async () => {
     const blogs = localStorage.getItem('blogs')
     if (blogs != null && blogs.length > 0) {
-        data.value = JSON.parse(blogs)
+        data.value = JSON.parse(blogs);
+        data.value = data.value.sort(function(a, b){
+            return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+        });
     } else {
         const result = await fetch('http://localhost:8080/')
         const response = await result.json()
