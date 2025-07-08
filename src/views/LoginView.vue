@@ -34,6 +34,7 @@ const handleLogin = async function () {
     }
     const result = await fetch(baseUrl + '/login', payload)
     const response = await result.json()
+    console.log(response)
     if (response && response.loggedIn == true) {
         email.value = ''
         password.value = ''
