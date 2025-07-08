@@ -45,6 +45,7 @@ const handleSubmit = async function () {
             username: username.value,
             email: email.value,
             password: password.value,
+            profilePic: imagePreview.value
         }),
     }
     const response = await fetch(baseUrl + '/register', payload)

@@ -33,6 +33,24 @@ const grabData = async () => {
     }
 }
 
+const trimBody = function(body: string){
+    const myArray: string[] = [];
+
+    if(body.length > 14){
+        const shorter = body.split(' ');
+        shorter.forEach((item:string, index)=>{
+            if(index < 14){
+                myArray.push(item);
+            }
+        });
+        let preview = myArray.join(' ');
+        preview = preview + '...';
+        return preview
+    }else{
+        return body;
+    }
+}
+
 grabData();
 
 </script>
@@ -55,7 +73,7 @@ grabData();
                     <p>
                         <strong>{{ item.title }}</strong>
                     </p>
-                    <p>{{ item.body }}</p>
+                    <p>{{ trimBody(item.body) }}</p>
                 </RouterLink>
             </div>
         </div>
