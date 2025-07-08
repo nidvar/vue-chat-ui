@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { timeAgo, auth } from '../tools/tools.ts'
-import { type Blog, type Reply } from '../interfaces/interface.ts'
+import { type Blog, type Reply, type User } from '../interfaces/interface.ts'
 import { loggedIn } from '../globalState/state.ts'
 
 const route = useRoute()
@@ -23,21 +23,20 @@ const clearError = function () {
     error.value = ''
 }
 
+const users = ref<User[]>([]);
+
 const grabBlog = async function () {
     const response = await fetch('http://localhost:8080/blog/' + route.params.id)
-    const result = await response.json()
-
-    const data = result.blogPost[0]
+    const result = await response.json();
+    users.value = result.allUsers;
+    const data = result.blogPost;
     replies.value = result.replies;
-
     const userData = await auth(router, 'email');
-
     if(userData && userData.email == data.email){
         ableToDelete.value = true;
     }else{
         ableToDelete.value = false;
     }
-
     if (data.title != null && data.body != null) {
         error.value = null
         blog.value = {
@@ -73,14 +72,11 @@ const addComment = async function () {
             comment: comment.value,
         }),
     }
-    const response = await fetch('http://localhost:8080/comment', payload)
-    const result = await response.json()
-    console.log(result)
+    await fetch('http://localhost:8080/comment', payload)
     grabBlog()
 }
 
 const deleteComment = async function () {
-    console.log('deleting from FE')
     const payload = {
         method: 'DELETE',
         headers: {
@@ -106,9 +102,12 @@ grabBlog();
     <div class="container-sm mt-3" v-if="!deletePopup">
         <br />
         <div v-if="blog" class="blog-page">
-            <p>
-                <strong>{{ blog.username }}</strong> - {{ timeAgo(blog.updatedAt) }}
-            </p>
+            <div v-for="user in users" :key="user.email">
+                <div v-if="user.username == blog.username">
+                    <img :src="user.profilePic" class="profile-mini me-2"/>
+                    <strong>{{ blog.username }}</strong> - {{ timeAgo(blog.updatedAt) }}
+                </div>
+            </div>
             <h3>{{ blog.title }}</h3>
             <p>{{ blog.body }}</p>
             <div class="text-end" v-if="ableToDelete">
@@ -140,9 +139,12 @@ grabBlog();
             <hr />
 
             <div v-for="item in replies" :key="item._id" class="comment-display">
-                <p>
-                    <strong>{{ item.username }}</strong> - {{ timeAgo(item.updatedAt) }}
-                </p>
+                <div v-for="user in users" :key="user.email">
+                    <div v-if="user.username == item.username">
+                        <img :src="user.profilePic" class="profile-mini me-2"/>
+                        <strong>{{ item.username }}</strong> - {{ timeAgo(item.updatedAt) }}
+                    </div>
+                </div>
                 <p>{{ item.comment }}</p>
                 <div class="text-end">
                     <button
@@ -156,7 +158,7 @@ grabBlog();
             </div>
         </div>
         <div v-else>
-            <h3 class="text-center">Error...</h3>
+            <h3 class="text-center">Loading...</h3>
         </div>
     </div>
     <div class="container-sm mt-3" v-else>

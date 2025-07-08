@@ -27,3 +27,14 @@ export interface Data {
     createdAt: Date
     updatedAt: Date
 }
+
+export interface User {
+    _id: number
+    title: string
+    email: string
+    username: string
+    createdAt: Date
+    updatedAt: Date
+    admin: boolean
+    profilePic: string
+}
