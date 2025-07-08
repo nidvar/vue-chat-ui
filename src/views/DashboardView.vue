@@ -31,6 +31,20 @@ const onFileChange = async (event: Event) => {
     previewUrl.value = imageData.payload;
 };
 
+const readableDate = function(userInput:string){
+    const date = new Date(userInput);
+    const options: Intl.DateTimeFormatOptions = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+        hour12: true
+    };
+    return new Intl.DateTimeFormat('en-US', options).format(date);
+}
+
 const grabUserData = async function () {
     const data = await fetch(baseUrl + '/dashboard', {
         method: 'GET',
@@ -42,10 +56,10 @@ const grabUserData = async function () {
     }
     if (response.user) {
         username.value = response.user.username
-        dateCreated.value = response.user.createdAt
+        dateCreated.value = readableDate(response.user.createdAt)
         email.value = response.user.email
         setProfilePic.value = response.user.profilePic
-    }
+    };
 };
 
 const updateProfilePic = async function(){
@@ -64,9 +78,7 @@ const updateProfilePic = async function(){
             profilePic: previewUrl.value
         })
     }
-    const response = await fetch(baseUrl + '/picture', payload);
-    const result = await response.json();
-    console.log(result);
+    await fetch(baseUrl + '/picture', payload);
     error.value = '';
     grabUserData();
 };
