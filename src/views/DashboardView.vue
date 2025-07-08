@@ -51,7 +51,7 @@ const grabUserData = async function () {
         credentials: 'include' as RequestCredentials,
     })
     const response = await data.json();
-    console.log(response);
+
     if (response.posts) {
         noOfPosts.value = response.posts.length
     }
