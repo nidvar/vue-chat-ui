@@ -22,10 +22,14 @@ const deletePopup = ref(false);
 const ableToDelete = ref(false);
 
 const userEmail = ref('');
+const editBlog = ref(false);
 
 const clearError = function () {
     error.value = ''
 }
+
+const title = ref('');
+const body = ref('');
 
 const users = ref<User[]>([]);
 
@@ -51,6 +55,8 @@ const grabBlog = async function () {
         }
         replyTo.value = ''
         comment.value = '';
+        title.value = data.title;
+        body.value = data.body;
     } else {
         error.value = 'Error!'
     }
@@ -107,6 +113,31 @@ const deleteComment = async function (arg?: number | string) {
     }
 }
 
+const submitEdit = async function(){
+    const payloadBody = {
+        blogTitle: title.value,
+        blogBody: body.value,
+        id: route.params.id
+    }
+    const payload = {
+        method: 'PUT',
+        headers: {
+            'content-type': 'application/json'
+        },
+        credentials: 'include' as RequestCredentials,
+        body:JSON.stringify(payloadBody)
+    };
+    const response = await fetch(baseUrl + '/update', payload);
+    const result = await response.json();
+    if(result.message == 'updated'){
+        grabBlog();
+        ableToDelete.value = false
+        editBlog.value = false;
+        title.value = '';
+        body.value = '';
+    };
+}
+
 grabBlog();
 
 
@@ -115,19 +146,48 @@ grabBlog();
     <div class="container-sm mt-3" v-if="!deletePopup">
         <br />
         <div v-if="blog" class="blog-page">
-            <div v-for="user in users" :key="user.email">
-                <div v-if="user.username == blog.username">
-                    <img :src="user.profilePic" class="profile-mini me-2"/>
-                    <strong>{{ blog.username }}</strong> - {{ timeAgo(blog.updatedAt) }}
+            <div v-if="!editBlog">
+                <div v-for="user in users" :key="user.email">
+                    <div v-if="user.username == blog.username">
+                        <img :src="user.profilePic" class="profile-mini me-2"/>
+                        <strong>{{ blog.username }}</strong> - {{ timeAgo(blog.updatedAt) }}
+                    </div>
                 </div>
+                <h3>{{ blog.title }}</h3>
+                <p>{{ blog.body }}</p>
+                <div class="text-end mt-3" v-if="ableToDelete">
+                    <button @click="editBlog = true" class="btn btn-success btn-sm me-2">EDIT</button>
+                    <button @click="deletePopup = true" class="btn btn-danger btn-sm">DELETE</button>
+                </div>
+                <hr />
             </div>
-            <h3>{{ blog.title }}</h3>
-            <p>{{ blog.body }}</p>
-            <div class="text-end" v-if="ableToDelete">
-                <button @click="deletePopup = true" class="btn btn-danger btn-sm">DELETE</button>
-            </div>
-            <hr />
             <br />
+            <div v-if="editBlog">
+                <form @submit.prevent="submitEdit" method="PUT">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Title</label>
+                        <input
+                            type="text"
+                            class="form-control"
+                            id="title"
+                            v-model="title"
+                        />
+                    </div>
+                    <div class="mb-3">
+                        <label for="body" class="form-label">Body</label>
+                        <textarea
+                            type="text"
+                            class="form-control"
+                            id="body"
+                            v-model="body"
+                        ></textarea>
+                    </div>
+                    <div class="text-end" v-if="ableToDelete">
+                        <button @click="editBlog = false" class="btn btn-danger btn-sm me-2">CANCEL</button>
+                        <button @submit="submitEdit" class="btn btn-primary btn-sm">EDIT</button>
+                    </div>
+                </form>
+            </div>
 
             <form @submit.prevent="addComment" method="POST">
                 <div class="mb-3">

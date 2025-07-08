@@ -63,13 +63,13 @@ grabData();
         <div v-for="item in data" :key="item._id" class="blog-display">
             <div class="link">
                 <RouterLink :to="'blog/' + item._id">
-                    <p class="user-details">
+                    <div class="user-details">
                         <div v-for="user in users" :key="user.email">
                             <div v-if="user.email == item.email">
                                 <img :src="user.profilePic" class="profile-mini"/> <strong>{{ item.username }}</strong> - {{ timeAgo(item.updatedAt) }}
                             </div>
                         </div>
-                    </p>
+                    </div>
                     <p>
                         <strong>{{ item.title }}</strong>
                     </p>
