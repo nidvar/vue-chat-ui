@@ -77,7 +77,7 @@ const addComment = async function () {
             comment: comment.value,
         }),
     }
-    await fetch('http://localhost:8080/comment', payload)
+    await fetch(baseUrl + '/comment', payload)
     grabBlog()
 }
 
