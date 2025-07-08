@@ -90,7 +90,7 @@ const handleSubmit = async function () {
             </div>
             <div class="mb-3">
                 <label for="confirm" class="form-label">Confirm password</label>
-                <input type="confirm" class="form-control" id="confirm" v-model="confirm" @input="clearError"/>
+                <input type="password" class="form-control" id="confirm" v-model="confirm" @input="clearError"/>
             </div>
             <button type="submit" class="btn btn-primary w-100 mt-3" @submit="handleSubmit">
                 Register
