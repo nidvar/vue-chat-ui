@@ -21,6 +21,8 @@ const deletePopup = ref(false);
 
 const ableToDelete = ref(false);
 
+const userEmail = ref('');
+
 const clearError = function () {
     error.value = ''
 }
@@ -34,6 +36,7 @@ const grabBlog = async function () {
     const data = result.blogPost;
     replies.value = result.replies;
     const userData = await auth(router, 'email');
+    userEmail.value = userData.email;
     if(userData && userData.email == data.email){
         ableToDelete.value = true;
     }else{
@@ -78,22 +81,30 @@ const addComment = async function () {
     grabBlog()
 }
 
-const deleteComment = async function () {
+const deleteComment = async function (arg?: number | string) {
+    const body = {
+        blogId: route.params.id,
+        comment: false
+    };
+    if(arg){
+        body.blogId = arg as string;
+        body.comment = true;
+    };
     const payload = {
         method: 'DELETE',
         headers: {
             'content-type': 'application/json',
         },
         credentials: 'include' as RequestCredentials,
-        body: JSON.stringify({ blogId: route.params.id }),
+        body: JSON.stringify(body),
     }
-    await fetch('http://localhost:8080/delete', payload)
+    await fetch(baseUrl + '/delete', payload)
     localStorage.setItem('blogs', '')
-    router.push('/dashboard')
-}
-
-const deleteReply = function (id: number | string) {
-    console.log(id)
+    if(!arg){
+        router.push('/dashboard');
+    }else{
+        grabBlog();
+    }
 }
 
 grabBlog();
@@ -148,11 +159,11 @@ grabBlog();
                     </div>
                 </div>
                 <p>{{ item.comment }}</p>
-                <div class="text-end">
+                <div class="text-end" v-if="userEmail == item.email">
                     <button
                         type="submit"
                         class="btn btn-danger btn-sm"
-                        @click="deleteReply(item._id)"
+                        @click="deleteComment(item._id)"
                     >
                         Delete
                     </button>
@@ -170,7 +181,7 @@ grabBlog();
             <br />
             <div class="text-center">
                 <button @click="deletePopup = false" class="btn btn-success me-2">CANCEL</button>
-                <button @click="deleteComment" class="btn btn-danger">DELETE</button>
+                <button @click="deleteComment()" class="btn btn-danger">DELETE</button>
             </div>
             <br />
         </div>
