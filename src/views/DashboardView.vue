@@ -18,17 +18,10 @@ const setProfilePic = ref('');
 const editProfilePicture = ref(false);
 
 const deleteCookie = async function () {
-    const response = await fetch(baseUrl + '/logout', {
+    await fetch(baseUrl + '/logout', {
         method: 'GET',
         credentials: 'include' as RequestCredentials,
     });
-    
-    console.log(response);
-    
-    const result = await response.json();
-    
-    console.log(result);
-    
     loggedIn.value = false;
     router.push('/');
 };
