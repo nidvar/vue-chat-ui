@@ -94,7 +94,7 @@ onMounted(() => {
     <div class="container-sm mt-3">
         <h3 class="text-center">Dashboard</h3>
         <br />
-        <div class="text-center image-preview">
+        <div class="text-center image-preview-container">
             <img :src="setProfilePic" class="image-preview" v-if="!editProfilePicture">
         </div>
         <div class="text-center" v-if="editProfilePicture">
