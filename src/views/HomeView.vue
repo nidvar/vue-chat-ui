@@ -10,14 +10,18 @@ const data = ref<Data[]>([]);
 const users = ref<User[]>([]);
 
 const grabData = async () => {
-    const result = await fetch(baseUrl)
-    const response = await result.json();
-    const posts = response.posts;
-    users.value = response.users;
-    data.value = posts;
-    data.value = data.value.sort(function(a, b){
-        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-    });
+    try{
+        const result = await fetch(baseUrl)
+        const response = await result.json();
+        const posts = response.posts;
+        users.value = response.users;
+        data.value = posts;
+        data.value = data.value.sort(function(a, b){
+            return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+        });
+    }catch(error){
+        console.log(error)
+    };
 }
 
 const trimBody = function(body: string){
