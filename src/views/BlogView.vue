@@ -36,9 +36,6 @@ const users = ref<User[]>([]);
 const grabBlog = async function () {
     const response = await fetch(baseUrl + '/blog/' + route.params.id)
     const result = await response.json();
-    
-    console.log(result);
-    
     users.value = result.allUsers;
     const data = result.blogPost;
     replies.value = result.replies;
@@ -111,7 +108,6 @@ const deleteComment = async function (arg?: number | string) {
         body: JSON.stringify(body),
     }
     await fetch(baseUrl + '/delete', payload)
-    localStorage.setItem('blogs', '')
     if(!arg){
         router.push('/');
     }else{
