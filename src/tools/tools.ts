@@ -54,17 +54,21 @@ export const fileHandler = async (event: Event): Promise<{error: string; payload
 };
 
 export const auth = async function (router: Router, email?: string) {
-    const result = await fetch(baseUrl + '/auth', {
-        credentials: 'include' as RequestCredentials,
-    })
-    const response = await result.json();
-    if(email){
-        return response;
-    }
-    if (!response.authenticated) {
-        router.push('/')
-    } else {
-        loggedIn.value = response.authenticated;
-        return response;
+    try{
+        const result = await fetch(baseUrl + '/auth', {
+            credentials: 'include' as RequestCredentials,
+        })
+        const response = await result.json();
+        if(email){
+            return response;
+        }
+        if (!response.authenticated) {
+            router.push('/')
+        } else {
+            loggedIn.value = response.authenticated;
+            return response;
+        }
+    }catch(error){
+        console.log(error)
     }
 }
