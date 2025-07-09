@@ -56,9 +56,9 @@ grabData();
 
 <template>
     <div class="container-md mt-3">
-        <div v-if="data.length == 0">
-            <h3 class="text-center">Loading data...</h3>
-            <p class="text-center">Could take a while...</p>
+        <div v-if="data.length == 0" class="text-center">
+            <h3>Loading data...</h3>
+            <p>Could take a while...</p>
             <p>{{delay}}</p>
         </div>
         <div v-else>
