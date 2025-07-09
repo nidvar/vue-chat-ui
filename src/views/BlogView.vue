@@ -110,7 +110,7 @@ const deleteComment = async function (arg?: number | string) {
     await fetch(baseUrl + '/delete', payload)
     localStorage.setItem('blogs', '')
     if(!arg){
-        router.push('/dashboard');
+        router.push('/');
     }else{
         grabBlog();
     }
