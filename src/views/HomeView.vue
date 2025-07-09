@@ -59,6 +59,7 @@ grabData();
         <div v-if="data.length == 0" class="text-center">
             <h3>Loading data...</h3>
             <p>Could take a while...</p>
+            <br /><br />
             <p>{{delay}}</p>
         </div>
         <div v-else>
