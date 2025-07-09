@@ -57,4 +57,5 @@ a:link, a:visited{
 .profile-mini{
     max-height:30px;
     max-width:30px;
+    margin-bottom:5px;
 }
