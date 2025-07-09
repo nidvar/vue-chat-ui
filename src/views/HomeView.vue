@@ -13,9 +13,7 @@ const delay = ref('');
 const grabData = async () => {
     try{
         const result = await fetch(baseUrl);
-        console.log(result);
         const response = await result.json();
-        console.log(response);
         const posts = response.posts;
         users.value = response.users;
         data.value = posts;
