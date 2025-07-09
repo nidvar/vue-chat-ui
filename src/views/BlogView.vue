@@ -240,9 +240,9 @@ grabBlog();
                 </div>
             </div>
         </div>
-        <div v-else>
-            <h3 class="text-center">Loading...</h3>
-            <p class="text-center">Could take a while...</p>
+        <div v-else class="text-center">
+            <h3>Loading...</h3>
+            <p>Could take a while...</p>
             <p>{{delay}}</p>
         </div>
     </div>
