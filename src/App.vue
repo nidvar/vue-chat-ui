@@ -22,5 +22,7 @@ onMounted(() => {
     </div>
 
     <br />
-    <RouterView />
+    <div class="router-body">
+        <RouterView />
+    </div>
 </template>
