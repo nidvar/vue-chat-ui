@@ -22,6 +22,9 @@ const grabData = async () => {
     } else {
         const result = await fetch(baseUrl)
         const response = await result.json();
+
+        console.log(response);
+        
         const posts = response.posts;
         users.value = response.users;
         localStorage.setItem('blogs', JSON.stringify(posts));
