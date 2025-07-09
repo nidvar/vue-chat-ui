@@ -243,6 +243,7 @@ grabBlog();
         <div v-else class="text-center">
             <h3>Loading...</h3>
             <p>Could take a while...</p>
+            <br /><br />
             <p>{{delay}}</p>
         </div>
     </div>
