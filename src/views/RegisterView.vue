@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { fileHandler } from '../tools/tools';
+import { fileHandler, blankProfile } from '../tools/tools';
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 const router = useRouter();
 
