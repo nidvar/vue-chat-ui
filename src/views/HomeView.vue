@@ -47,7 +47,7 @@ const trimBody = function(body: string){
 
 const delayedWarning = function(){
     setTimeout(()=>{
-        delay.value = 'Maybe 50 seconds...'
+        delay.value = 'Free webhosting.....not always reliable'
     }, 10000)
 }
 
@@ -59,9 +59,8 @@ grabData();
 <template>
     <div class="container-md mt-3">
         <div v-if="data.length == 0" class="text-center">
-            <h3>Loading data...</h3>
-            <p>Could take a while...</p>
-            <br /><br />
+            <h3>Loading data...</h3><br />
+            <p>Could take a while...</p><br />
             <p>{{delay}}</p>
         </div>
         <div v-else>
