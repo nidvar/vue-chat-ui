@@ -8,6 +8,7 @@ const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 const data = ref<Data[]>([]);
 const users = ref<User[]>([]);
+const delay = ref('');
 
 const grabData = async () => {
     try{
@@ -42,6 +43,12 @@ const trimBody = function(body: string){
     }
 }
 
+const delayedWarning = function(){
+    setTimeout(()=>{
+        delay.value = 'Maybe 50 seconds...'
+    }, 10000)
+}
+
 grabData();
 
 </script>
@@ -51,6 +58,7 @@ grabData();
         <div v-if="data.length == 0">
             <h3 class="text-center">Loading data...</h3>
             <p class="text-center">Could take a while...</p>
+            <p>{{delay}}</p>
         </div>
         <div v-else>
             <h3 class="text-center">VueJS - Node</h3>
