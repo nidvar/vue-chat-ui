@@ -1,15 +1,19 @@
 .container-sm {
   max-width: 540px !important;
 }
+.parentNav{
+    background-color: #212529;
+}
 .myNav {
-  display: flex;
-  justify-content: space-between;
-  max-width: 540px;
-  margin: auto;
-  height: 50px;
-  padding: 10px;
-  font-size: 20px;
-  text-decoration: underline;
+    display: flex;
+    justify-content: space-between;
+    max-width: 540px;
+    margin: auto;
+    height: 50px;
+    padding: 10px 20px 10px 20px;
+    font-size: 20px;
+    text-decoration: underline;
+    color:white;
 }
 textarea {
   min-height:200px !important;
