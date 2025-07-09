@@ -58,7 +58,7 @@ grabData();
 <template>
     <div class="container-md mt-3">
         <h3 class="text-center">VueJS - Node</h3>
-        <p class="text-center">Express - MongoDB</p>
+        <p class="text-center">Login / Authentication & Database</p>
         <br /><br />
         <div v-for="item in data" :key="item._id" class="blog-display">
             <div class="link">
