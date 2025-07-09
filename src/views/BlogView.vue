@@ -39,6 +39,9 @@ const grabBlog = async function () {
     users.value = result.allUsers;
     const data = result.blogPost;
     replies.value = result.replies;
+    replies.value = replies.value.sort(function(a, b){
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    });
     const userData = await auth(router, 'email');
     userEmail.value = userData.email;
     if(userData && userData.email == data.email){
