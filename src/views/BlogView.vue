@@ -10,6 +10,7 @@ const baseUrl = import.meta.env.VITE_API_BASE_URL;
 const route = useRoute()
 const router = useRouter()
 const error = ref<null | string>(null)
+const delay = ref('');
 
 const blog = ref<Blog | null>(null)
 const replies = ref<Reply[]>([])
@@ -140,6 +141,12 @@ const submitEdit = async function(){
     };
 }
 
+const delayedWarning = function(){
+    setTimeout(()=>{
+        delay.value = 'Maybe 50 seconds...'
+    }, 10000)
+}
+
 grabBlog();
 
 
@@ -234,6 +241,8 @@ grabBlog();
         </div>
         <div v-else>
             <h3 class="text-center">Loading...</h3>
+            <p class="text-center">Could take a while...</p>
+            <p>{{delay}}</p>
         </div>
     </div>
     <div class="container-sm mt-3" v-else>
