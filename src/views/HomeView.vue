@@ -14,8 +14,6 @@ const grabData = async () => {
     const response = await result.json();
     const posts = response.posts;
     users.value = response.users;
-    localStorage.setItem('blogs', JSON.stringify(posts));
-    localStorage.setItem('users', JSON.stringify(response.users));
     data.value = posts;
     data.value = data.value.sort(function(a, b){
         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
