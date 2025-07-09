@@ -147,6 +147,7 @@ const delayedWarning = function(){
     }, 10000)
 }
 
+delayedWarning();
 grabBlog();
 
 
