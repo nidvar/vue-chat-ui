@@ -10,30 +10,16 @@ const data = ref<Data[]>([]);
 const users = ref<User[]>([]);
 
 const grabData = async () => {
-    const blogs = localStorage.getItem('blogs');
-    const usersFromLS = localStorage.getItem('users');
-
-    if (blogs != null && blogs.length > 0 && usersFromLS != null) {
-        data.value = JSON.parse(blogs);
-        users.value = JSON.parse(usersFromLS);
-        data.value = data.value.sort(function(a, b){
-            return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-        });
-    } else {
-        const result = await fetch(baseUrl)
-        const response = await result.json();
-
-        console.log(response);
-        
-        const posts = response.posts;
-        users.value = response.users;
-        localStorage.setItem('blogs', JSON.stringify(posts));
-        localStorage.setItem('users', JSON.stringify(response.users));
-        data.value = posts;
-        data.value = data.value.sort(function(a, b){
-            return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-        });
-    }
+    const result = await fetch(baseUrl)
+    const response = await result.json();
+    const posts = response.posts;
+    users.value = response.users;
+    localStorage.setItem('blogs', JSON.stringify(posts));
+    localStorage.setItem('users', JSON.stringify(response.users));
+    data.value = posts;
+    data.value = data.value.sort(function(a, b){
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    });
 }
 
 const trimBody = function(body: string){
@@ -60,9 +46,15 @@ grabData();
 
 <template>
     <div class="container-md mt-3">
-        <h3 class="text-center">VueJS - Node</h3>
-        <p class="text-center">Login / Authentication & Database</p>
-        <br /><br />
+        <div v-if=data.length == 0>
+            <h3 class="text-center">Loading data...</h3>
+            <p class="text-center">Could take a while...</p>
+        </div>
+        <div v-else>
+            <h3 class="text-center">VueJS - Node</h3>
+            <p class="text-center">Login / Authentication & Database</p>
+            <br /><br />
+        </div>
         <div v-for="item in data" :key="item._id" class="blog-display">
             <div class="link">
                 <RouterLink :to="'blog/' + item._id">
