@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { fileHandler } from '../tools/tools';
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
@@ -55,6 +55,9 @@ const handleSubmit = async function () {
         router.push('/login');
     }
 }
+onMounted(()=>{
+    imagePreview.value = blankProfile();
+})
 </script>
 <template>
     <div class="container-sm mt-3">
