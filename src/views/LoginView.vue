@@ -80,7 +80,7 @@ const handleLogin = async function () {
 
             <p class="text-center mt-3 d-flex">
                 Don't have an account?
-                <RouterLink class="nav-link text-primary ms-1" to="/register">Register</RouterLink>
+                <RouterLink class="text-primary ms-1" to="/register">Register</RouterLink>
             </p>
         </div>
         <div v-else>
