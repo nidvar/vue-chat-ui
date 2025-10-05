@@ -1,3 +1,8 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 .router-body{
     padding:0 20px 0 20px;
 }
@@ -12,10 +17,9 @@
     justify-content: space-between;
     max-width: 540px;
     margin: auto;
-    height: 50px;
-    padding: 15px 40px 10px 40px;
     font-size: 16px;
     color:white;
+    padding: 15px 0;
 }
 textarea {
   min-height:200px !important;
@@ -62,3 +66,9 @@ a:link, a:visited{
     max-width:30px;
     margin: 0 5px 5px 0;
 }
+
+@media (max-width: 768px) {
+    .myNav {
+        max-width:300px
+    }
+};
