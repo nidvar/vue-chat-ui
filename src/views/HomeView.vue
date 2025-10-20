@@ -13,6 +13,9 @@ const delay = ref('');
 const grabData = async () => {
     try{
         const result = await fetch(baseUrl);
+        if(!result.ok){
+            throw new Error('Free webhosting has issues');
+        };
         const response = await result.json();
         const posts = response.posts;
         users.value = response.users;
