@@ -60,7 +60,7 @@ onMounted(()=>{
 })
 </script>
 <template>
-    <div class="container-sm mt-3">
+    <div class="form-width mt-3">
         <h3 class="text-center">Register</h3>
         <form @submit.prevent="handleSubmit" method="POST">
             <div class="text-center">

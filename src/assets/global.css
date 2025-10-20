@@ -12,7 +12,12 @@
 }
 
 .container-sm {
-    max-width: 540px;
+    max-width: 840px;
+}
+
+.form-width {
+    max-width: 600px;
+    margin: auto;
 }
 
 .nav-link {
@@ -23,7 +28,7 @@
 .myNav {
     display: flex;
     justify-content: space-between;
-    max-width: 540px;
+    max-width: 1320px;
     margin: auto;
     font-size: 16px;
     padding: 15px 0;
@@ -86,6 +91,6 @@ a:link, a:visited{
 
 @media (max-width: 768px) {
     .myNav {
-        max-width: 300px;
+        padding: 0 20px;
     }
 };

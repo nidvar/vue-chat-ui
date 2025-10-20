@@ -47,7 +47,7 @@ const handleLogin = async function () {
 }
 </script>
 <template>
-    <div class="container-sm mt-3">
+    <div class="form-width mt-3">
         <div v-if="!loading">
             <h3 class="text-center">Login</h3>
             <form @submit.prevent="handleLogin" method="POST">

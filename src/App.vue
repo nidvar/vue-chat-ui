@@ -12,7 +12,7 @@ onMounted(() => {
 
 </script>
 <template>
-    <div class="parentNav">
+    <div class="parentNav container-md mt-3">
         <div class="myNav">
             <RouterLink class="nav-link active" aria-current="page" to="/">HOME</RouterLink>
             <RouterLink class="nav-link" to="/create">CREATE</RouterLink>

@@ -53,7 +53,7 @@ const handleSubmit = async function () {
 }
 </script>
 <template>
-    <div class="container-sm mt-3">
+    <div class="form-width mt-3">
         <h3 class="text-center">Create new Blog</h3>
         <form @submit.prevent="handleSubmit" method="POST">
             <div class="mb-3">
