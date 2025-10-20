@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { timeAgo } from '../tools/tools.ts'
 import { type Data, type User } from '../interfaces/interface.ts'
@@ -53,7 +53,10 @@ const delayedWarning = function(){
 }
 
 delayedWarning();
-grabData();
+
+onMounted(()=>{
+    grabData();
+})
 
 </script>
 

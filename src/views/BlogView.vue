@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { timeAgo, auth } from '../tools/tools.ts'
 import { type Blog, type Reply, type User } from '../interfaces/interface.ts'
@@ -151,8 +151,10 @@ const delayedWarning = function(){
 }
 
 delayedWarning();
-grabBlog();
 
+onMounted(()=>{
+    grabBlog();
+});
 
 </script>
 <template>
