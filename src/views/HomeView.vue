@@ -12,7 +12,10 @@ const delay = ref('');
 
 const grabData = async () => {
     try{
-        const result = await fetch(baseUrl);
+        const result = await fetch(baseUrl,{
+            method: 'GET',
+            credentials: 'include' // ✅ this ensures cookies are sent
+        });
         if(!result.ok){
             throw new Error('Free webhosting has issues');
         };
