@@ -12,7 +12,7 @@ const delay = ref('');
 
 const grabData = async () => {
     try{
-        const result = await fetch(baseUrl + '/auth', {
+        const result = await fetch(baseUrl, {
             method: 'GET',
             credentials: 'include' as RequestCredentials
         });
