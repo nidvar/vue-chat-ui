@@ -35,43 +35,50 @@ const body = ref('');
 const users = ref<User[]>([]);
 
 const grabBlog = async function () {
-    const response = await fetch(baseUrl + '/blog/' + route.params.id, {
-        method: 'GET',
-        credentials: 'include' as RequestCredentials
-    });
-    
-    if(!response.ok){
-        throw new Error('Free webhosting has issues');
-    };
-    const result = await response.json();
-    users.value = result.allUsers;
-    const data = result.blogPost;
-    replies.value = result.replies;
-    replies.value = replies.value.sort(function(a, b){
-        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-    });
-    const userData = await auth(router, 'email');
-    userEmail.value = userData.email;
-    if(userData && userData.email == data.email){
-        ableToDelete.value = true;
-    }else{
-        ableToDelete.value = false;
-    }
-    if (data.title != null && data.body != null) {
-        error.value = null
-        blog.value = {
-            ...data,
-            createdAt: new Date(data.createdAt),
-            updatedAt: new Date(data.updatedAt),
+    try {
+        const response = await fetch(baseUrl + '/blog/' + route.params.id, {
+            method: 'GET',
+            credentials: 'include' as RequestCredentials
+        });
+
+        if(!response.ok) throw new Error('Free webhosting has issues');
+
+        const result = await response.json();
+        users.value = result.allUsers;
+        const data = result.blogPost;
+        replies.value = result.replies.sort((a,b)=> new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
+        // Optional auth check: wrap in try/catch to suppress 401
+        try {
+            const userData = await auth(router, 'email');
+            userEmail.value = userData.email;
+            ableToDelete.value = userData.email === data.email;
+        } catch(err) {
+            // user not logged in → silently ignore
+            userEmail.value = '';
+            ableToDelete.value = false;
         }
-        replyTo.value = ''
-        comment.value = '';
-        title.value = data.title;
-        body.value = data.body;
-    } else {
-        error.value = 'Error!'
+
+        if (data.title && data.body) {
+            error.value = null
+            blog.value = {
+                ...data,
+                createdAt: new Date(data.createdAt),
+                updatedAt: new Date(data.updatedAt),
+            }
+            replyTo.value = ''
+            comment.value = '';
+            title.value = data.title;
+            body.value = data.body;
+        } else {
+            error.value = 'Error!'
+        }
+
+    } catch(error) {
+        console.log(error)
     }
 }
+
 
 const addComment = async function () {
     if (!loggedIn.value) {
