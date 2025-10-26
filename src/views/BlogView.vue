@@ -35,7 +35,11 @@ const body = ref('');
 const users = ref<User[]>([]);
 
 const grabBlog = async function () {
-    const response = await fetch(baseUrl + '/blog/' + route.params.id);
+    const response = await fetch(baseUrl + '/blog/' + route.params.id, {
+        method: 'GET',
+        credentials: 'include' as RequestCredentials
+    });
+    
     if(!response.ok){
         throw new Error('Free webhosting has issues');
     };
