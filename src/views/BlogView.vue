@@ -46,7 +46,9 @@ const grabBlog = async function () {
         const result = await response.json();
         users.value = result.allUsers;
         const data = result.blogPost;
-        replies.value = result.replies.sort((a,b)=> new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+        replies.value = result.replies.sort((a: Reply, b: Reply) => 
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
 
         // Optional auth check: wrap in try/catch to suppress 401
         try {
