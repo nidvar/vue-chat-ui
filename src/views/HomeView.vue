@@ -17,6 +17,7 @@ const grabData = async () => {
             credentials: 'include' as RequestCredentials
         });
         if(!result.ok){
+            console.log(result);
             throw new Error('Free webhosting has issues');
         };
         const response = await result.json();
