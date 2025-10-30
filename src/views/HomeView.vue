@@ -23,6 +23,7 @@ const grabData = async () => {
             throw new Error('Free webhosting has issues');
         };
         const response = await result.json();
+        console.log('working response from home view ===> ', response)
         const posts = response.posts;
         users.value = response.users;
         data.value = posts;
