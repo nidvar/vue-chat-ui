@@ -34,7 +34,11 @@ const handleLogin = async function () {
     }
     const result = await fetch(baseUrl + '/login', payload);
     console.log(result);
+<<<<<<< HEAD
     const response = await result.json()
+=======
+    const response = await result.json();
+>>>>>>> 5c965ed28121cd3e0843813143aca56b240ecd1f
 
     if (response && response.loggedIn == true) {
         email.value = ''
