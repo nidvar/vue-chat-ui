@@ -1,27 +1,23 @@
 <script setup lang="ts">
-import { RouterLink, RouterView, useRouter } from 'vue-router'
-import { onMounted } from 'vue'
+import { RouterLink, RouterView } from 'vue-router'
 import { loggedIn } from './globalState/state.ts'
-import { auth } from './tools/tools.ts'
-
-const router = useRouter();
-
-onMounted(() => {
-    auth(router);
-});
 
 </script>
 <template>
-    <div class="parentNav container-md mt-3">
-        <div class="myNav">
-            <RouterLink class="nav-link active" aria-current="page" to="/">HOME</RouterLink>
-            <RouterLink class="nav-link" to="/create">CREATE</RouterLink>
-            <RouterLink class="nav-link" to="/dashboard" v-if="loggedIn">ACCOUNT</RouterLink>
-            <RouterLink class="nav-link" to="/login" v-if="!loggedIn">LOGIN</RouterLink>
+    <header class="my-header">
+        <div class="my-inner-header">
+            <div class="my-logo">
+                <RouterLink class="active" aria-current="page" to="/">HOME</RouterLink>
+            </div>
+            <nav class="my-nav">
+                <ul>
+                    <li><RouterLink to="/create">CREATE</RouterLink></li>
+                    <li><RouterLink to="/dashboard" v-if="loggedIn">ACCOUNT</RouterLink></li>
+                    <li><RouterLink to="/login" v-if="!loggedIn">LOGIN</RouterLink></li>
+                </ul>
+            </nav>
         </div>
-    </div>
-
-    <br />
+    </header>
     <div class="router-body">
         <RouterView />
     </div>

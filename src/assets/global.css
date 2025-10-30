@@ -7,6 +7,37 @@
     font-style: normal;
 }
 
+/* header */
+
+.my-header {
+    box-shadow: 0 1px 10px rgba(0,0,0,0.2);
+    padding: 0 15px;
+}
+
+.my-inner-header {
+    max-width: 1400px;
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    padding: 15px;
+}
+
+.my-nav ul {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+}
+
+.my-nav li {
+    margin: 0 15px;
+}
+
+ul {
+    margin: 0;
+}
+
+/* ============== */
+
 .router-body{
     padding: 0 20px;
 }
@@ -18,20 +49,6 @@
 .form-width {
     max-width: 600px;
     margin: auto;
-}
-
-.nav-link {
-    border: 1px solid #212529;
-    padding: 5px 15px;
-}
-
-.myNav {
-    display: flex;
-    justify-content: space-between;
-    max-width: 1200px;
-    margin: auto;
-    font-size: 16px;
-    padding: 15px 0;
 }
 
 textarea {

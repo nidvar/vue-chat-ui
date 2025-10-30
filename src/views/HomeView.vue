@@ -18,6 +18,8 @@ const grabData = async () => {
         });
         if(!result.ok){
             console.log(result);
+            const data = await result.json();
+            console.log(data);
             throw new Error('Free webhosting has issues');
         };
         const response = await result.json();

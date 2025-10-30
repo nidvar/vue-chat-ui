@@ -32,7 +32,8 @@ const handleLogin = async function () {
             password: password.value,
         }),
     }
-    const result = await fetch(baseUrl + '/login', payload)
+    const result = await fetch(baseUrl + '/login', payload);
+    console.log(result);
     const response = await result.json()
 
     if (response && response.loggedIn == true) {
@@ -41,6 +42,7 @@ const handleLogin = async function () {
         loggedIn.value = true
         router.push('/dashboard')
     } else {
+        console.log('no login');
         error.value = response.error
     }
     loading.value = false
