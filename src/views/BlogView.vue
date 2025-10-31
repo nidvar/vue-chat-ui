@@ -44,7 +44,7 @@ const grabBlog = async function () {
         if(!response.ok) throw new Error('Free webhosting has issues');
 
         const result = await response.json();
-        users.value = result.allUsers;
+        users.value = result.users;
         const data = result.blogPost;
         replies.value = result.replies.sort((a: Reply, b: Reply) =>
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
