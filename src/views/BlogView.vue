@@ -46,17 +46,16 @@ const grabBlog = async function () {
         const result = await response.json();
         users.value = result.allUsers;
         const data = result.blogPost;
-        replies.value = result.replies.sort((a: Reply, b: Reply) => 
+        replies.value = result.replies.sort((a: Reply, b: Reply) =>
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         );
 
-        // Optional auth check: wrap in try/catch to suppress 401
         try {
             const userData = await auth(router, 'email');
             userEmail.value = userData.email;
             ableToDelete.value = userData.email === data.email;
         } catch(err) {
-            // user not logged in → silently ignore
+            console.log(err);
             userEmail.value = '';
             ableToDelete.value = false;
         }

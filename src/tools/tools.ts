@@ -80,7 +80,6 @@ export const auth = async function (router: Router, email?: string) {
         }
     } catch (error) {
         console.log('Auth error:', error);
-        router.push('/');
     }
 };
 
